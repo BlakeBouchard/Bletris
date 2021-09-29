@@ -28,7 +28,7 @@ private:
 	std::shared_ptr<Board> m_pBoard;
 	std::shared_ptr<GameWindow> m_pGameWindow;
 
-	bool bRequestedExit = false;
+	bool m_bRequestedExit = false;
 
 	void RequestExit();
 };

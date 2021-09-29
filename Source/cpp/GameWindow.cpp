@@ -313,10 +313,10 @@ void GameWindow::OnResize(UINT width, UINT height)
 
 void GameWindow::RequestExit()
 {
-	b_windowRequestedExit = true;
+	m_bWindowRequestedExit = true;
 }
 
 bool GameWindow::DidWindowRequestExit()
 {
-	return b_windowRequestedExit;
+	return m_bWindowRequestedExit;
 }

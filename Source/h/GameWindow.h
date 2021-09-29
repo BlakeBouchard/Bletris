@@ -71,7 +71,7 @@ private:
     ID2D1SolidColorBrush* m_pLightSlateGrayBrush;
     ID2D1SolidColorBrush* m_pCornflowerBlueBrush;
 
-	bool b_windowRequestedExit = false;
+	bool m_bWindowRequestedExit = false;
 
 	// Initialize device-independent resources.
 	HRESULT CreateDeviceIndependentResources();

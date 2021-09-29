@@ -32,10 +32,10 @@ void Game::Update()
 
 void Game::RequestExit()
 {
-	bRequestedExit = true;
+	m_bRequestedExit = true;
 }
 
 bool Game::DidGameRequestExit() const
 {
-	return bRequestedExit;
+	return m_bRequestedExit;
 }
