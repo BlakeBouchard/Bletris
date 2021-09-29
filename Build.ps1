@@ -19,5 +19,5 @@ if (!(test-path $buildDir))
 	New-Item -ItemType Directory -Force -Path $buildDir
 }
 Push-Location $buildDir
-Invoke-Expression "cl.exe /Zi /FS /EHsc /nologo /Fe:'Bletris.exe' '..\src\cpp\*.cpp'"
+Invoke-Expression "cl.exe /Zi /FS /EHsc /nologo /DUNICODE /D_UNICODE /Fe:'Bletris.exe' '..\src\cpp\*.cpp'"
 Pop-Location

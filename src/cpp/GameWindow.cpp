@@ -51,7 +51,7 @@ HRESULT GameWindow::Initialize()
 		wcex.hbrBackground = NULL;
 		wcex.lpszMenuName  = NULL;
 		wcex.hCursor       = LoadCursor(NULL, IDI_APPLICATION);
-		wcex.lpszClassName = reinterpret_cast<LPCSTR>(L"D2DGameWindow");
+		wcex.lpszClassName = L"D2DGameWindow";
 
 		RegisterClassEx(&wcex);
 
@@ -67,8 +67,8 @@ HRESULT GameWindow::Initialize()
 
 		// Create the window.
 		m_hwnd = CreateWindow(
-			reinterpret_cast<LPCSTR>(L"D2DGameWindow"),
-			reinterpret_cast<LPCSTR>(L"Direct2D Game Window"),
+			L"D2DGameWindow",
+			L"Direct2D Game Window",
 			WS_OVERLAPPEDWINDOW,
 			CW_USEDEFAULT,
 			CW_USEDEFAULT,
