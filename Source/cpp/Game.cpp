@@ -1,7 +1,9 @@
 #include "../h/Game.h"
+#include "../h/KeyCode.h"
 
 Game::Game() : m_pBoard(std::make_shared<Board>(NumRows, NumCols)),
-			   m_pGameWindow(std::make_shared<GameWindow>())
+			   m_pGameWindow(std::make_shared<GameWindow>()),
+			   m_pInputManager(std::make_shared<InputManager>())
 {
 }
 
@@ -16,13 +18,15 @@ HRESULT Game::Initialize()
 
 void Game::Update()
 {
+	m_pInputManager->Update();
+
 	// Update the Game Window by passing in the current Board state
 	m_pGameWindow->Update(m_pBoard->GetBoardSquares());
 
-	// if (DirectInput.GetKeyboardDown(KeyCode.Escape) OR SOMETHING
-	// {
-	// 	RequestExit();
-	// }
+	if (m_pInputManager->IsKeyDown(KeyCode::Esc))
+	{
+		RequestExit();
+	}
 
 	if (m_pGameWindow->DidWindowRequestExit())
 	{

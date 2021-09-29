@@ -2,6 +2,7 @@
 
 #include "Board.h"
 #include "GameWindow.h"
+#include "InputManager.h"
 
 #include <memory>
 
@@ -27,6 +28,7 @@ private:
 
 	std::shared_ptr<Board> m_pBoard;
 	std::shared_ptr<GameWindow> m_pGameWindow;
+	std::shared_ptr<InputManager> m_pInputManager;
 
 	bool m_bRequestedExit = false;
 

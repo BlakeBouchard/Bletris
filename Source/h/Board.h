@@ -12,7 +12,7 @@ private:
 	int m_iNumRows;
 	int m_iNumCols;
 
-	std::shared_ptr<std::vector<int>> m_paSquares;
+	std::vector<int> m_aSquares;
 
 public:
 
