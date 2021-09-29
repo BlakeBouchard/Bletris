@@ -38,7 +38,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					game.Update();
 				}
 			}
-			catch (const std::exception& ex)
+			catch (const std::exception &ex)
 			{
 				std::cout << ex.what();
 			}

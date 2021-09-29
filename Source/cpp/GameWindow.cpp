@@ -1,10 +1,10 @@
 #include "../h/GameWindow.h"
 
 GameWindow::GameWindow() : m_hwnd(NULL),
-					 m_pDirect2dFactory(NULL),
-					 m_pRenderTarget(NULL),
-					 m_pLightSlateGrayBrush(NULL),
-					 m_pCornflowerBlueBrush(NULL)
+						   m_pDirect2dFactory(NULL),
+						   m_pRenderTarget(NULL),
+						   m_pLightSlateGrayBrush(NULL),
+						   m_pCornflowerBlueBrush(NULL)
 {
 }
 
@@ -16,7 +16,7 @@ GameWindow::~GameWindow()
 	SafeRelease(&m_pCornflowerBlueBrush);
 }
 
-void GameWindow::Update(const std::vector<int>& boardSquares)
+void GameWindow::Update(const std::vector<int> &boardSquares)
 {
 	MSG msg;
 
@@ -42,19 +42,18 @@ HRESULT GameWindow::Initialize()
 	if (SUCCEEDED(hr))
 	{
 		// Register the window class.
-		WNDCLASSEX wcex = { sizeof(WNDCLASSEX) };
-		wcex.style         = CS_HREDRAW | CS_VREDRAW;
-		wcex.lpfnWndProc   = GameWindow::WndProc;
-		wcex.cbClsExtra    = 0;
-		wcex.cbWndExtra    = sizeof(LONG_PTR);
-		wcex.hInstance     = HINST_THISCOMPONENT;
+		WNDCLASSEX wcex = {sizeof(WNDCLASSEX)};
+		wcex.style = CS_HREDRAW | CS_VREDRAW;
+		wcex.lpfnWndProc = GameWindow::WndProc;
+		wcex.cbClsExtra = 0;
+		wcex.cbWndExtra = sizeof(LONG_PTR);
+		wcex.hInstance = HINST_THISCOMPONENT;
 		wcex.hbrBackground = NULL;
-		wcex.lpszMenuName  = NULL;
-		wcex.hCursor       = LoadCursor(NULL, IDI_APPLICATION);
+		wcex.lpszMenuName = NULL;
+		wcex.hCursor = LoadCursor(NULL, IDI_APPLICATION);
 		wcex.lpszClassName = L"D2DGameWindow";
 
 		RegisterClassEx(&wcex);
-
 
 		// Because the CreateWindow function takes its size in pixels,
 		// obtain the system DPI and use it to scale the window size.
@@ -63,7 +62,6 @@ HRESULT GameWindow::Initialize()
 		// The factory returns the current system DPI. This is also the value it will use
 		// to create its own windows.
 		m_pDirect2dFactory->GetDesktopDpi(&dpiX, &dpiY);
-
 
 		// Create the window.
 		m_hwnd = CreateWindow(
@@ -77,8 +75,7 @@ HRESULT GameWindow::Initialize()
 			NULL,
 			NULL,
 			HINST_THISCOMPONENT,
-			this
-			);
+			this);
 		hr = m_hwnd ? S_OK : E_FAIL;
 		if (SUCCEEDED(hr))
 		{
@@ -111,32 +108,27 @@ HRESULT GameWindow::CreateDeviceResources()
 
 		D2D1_SIZE_U size = D2D1::SizeU(
 			rc.right - rc.left,
-			rc.bottom - rc.top
-			);
+			rc.bottom - rc.top);
 
 		// Create a Direct2D render target.
 		hr = m_pDirect2dFactory->CreateHwndRenderTarget(
 			D2D1::RenderTargetProperties(),
 			D2D1::HwndRenderTargetProperties(m_hwnd, size),
-			&m_pRenderTarget
-			);
-
+			&m_pRenderTarget);
 
 		if (SUCCEEDED(hr))
 		{
 			// Create a gray brush.
 			hr = m_pRenderTarget->CreateSolidColorBrush(
 				D2D1::ColorF(D2D1::ColorF::LightSlateGray),
-				&m_pLightSlateGrayBrush
-				);
+				&m_pLightSlateGrayBrush);
 		}
 		if (SUCCEEDED(hr))
 		{
 			// Create a blue brush.
 			hr = m_pRenderTarget->CreateSolidColorBrush(
 				D2D1::ColorF(D2D1::ColorF::CornflowerBlue),
-				&m_pCornflowerBlueBrush
-				);
+				&m_pCornflowerBlueBrush);
 		}
 	}
 
@@ -162,8 +154,7 @@ LRESULT CALLBACK GameWindow::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 		::SetWindowLongPtrW(
 			hwnd,
 			GWLP_USERDATA,
-			reinterpret_cast<LONG_PTR>(pGameWindow)
-			);
+			reinterpret_cast<LONG_PTR>(pGameWindow));
 
 		result = 1;
 	}
@@ -172,8 +163,7 @@ LRESULT CALLBACK GameWindow::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 		GameWindow *pGameWindow = reinterpret_cast<GameWindow *>(static_cast<LONG_PTR>(
 			::GetWindowLongPtrW(
 				hwnd,
-				GWLP_USERDATA
-				)));
+				GWLP_USERDATA)));
 
 		bool wasHandled = false;
 
@@ -182,36 +172,36 @@ LRESULT CALLBACK GameWindow::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 			switch (message)
 			{
 			case WM_SIZE:
-				{
-					UINT width = LOWORD(lParam);
-					UINT height = HIWORD(lParam);
-					pGameWindow->OnResize(width, height);
-				}
+			{
+				UINT width = LOWORD(lParam);
+				UINT height = HIWORD(lParam);
+				pGameWindow->OnResize(width, height);
+			}
 				result = 0;
 				wasHandled = true;
 				break;
 
 			case WM_DISPLAYCHANGE:
-				{
-					InvalidateRect(hwnd, NULL, FALSE);
-				}
+			{
+				InvalidateRect(hwnd, NULL, FALSE);
+			}
 				result = 0;
 				wasHandled = true;
 				break;
 
 			case WM_PAINT:
-				{
-					pGameWindow->OnRender();
-					ValidateRect(hwnd, NULL);
-				}
+			{
+				pGameWindow->OnRender();
+				ValidateRect(hwnd, NULL);
+			}
 				result = 0;
 				wasHandled = true;
 				break;
 
 			case WM_DESTROY:
-				{
-					PostQuitMessage(0);
-				}
+			{
+				PostQuitMessage(0);
+			}
 				result = 1;
 				wasHandled = true;
 				break;
@@ -253,8 +243,7 @@ HRESULT GameWindow::OnRender()
 				D2D1::Point2F(static_cast<FLOAT>(x), 0.0f),
 				D2D1::Point2F(static_cast<FLOAT>(x), rtSize.height),
 				m_pLightSlateGrayBrush,
-				0.5f
-				);
+				0.5f);
 		}
 
 		for (int y = 0; y < height; y += 10)
@@ -263,24 +252,21 @@ HRESULT GameWindow::OnRender()
 				D2D1::Point2F(0.0f, static_cast<FLOAT>(y)),
 				D2D1::Point2F(rtSize.width, static_cast<FLOAT>(y)),
 				m_pLightSlateGrayBrush,
-				0.5f
-				);
+				0.5f);
 		}
 
 		// Draw two rectangles.
 		D2D1_RECT_F rectangle1 = D2D1::RectF(
-			rtSize.width/2 - 50.0f,
-			rtSize.height/2 - 50.0f,
-			rtSize.width/2 + 50.0f,
-			rtSize.height/2 + 50.0f
-			);
+			rtSize.width / 2 - 50.0f,
+			rtSize.height / 2 - 50.0f,
+			rtSize.width / 2 + 50.0f,
+			rtSize.height / 2 + 50.0f);
 
 		D2D1_RECT_F rectangle2 = D2D1::RectF(
-			rtSize.width/2 - 100.0f,
-			rtSize.height/2 - 100.0f,
-			rtSize.width/2 + 100.0f,
-			rtSize.height/2 + 100.0f
-			);
+			rtSize.width / 2 - 100.0f,
+			rtSize.height / 2 - 100.0f,
+			rtSize.width / 2 + 100.0f,
+			rtSize.height / 2 + 100.0f);
 
 		// Draw a filled rectangle.
 		m_pRenderTarget->FillRectangle(&rectangle1, m_pLightSlateGrayBrush);

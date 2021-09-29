@@ -24,7 +24,7 @@ https://docs.microsoft.com/en-us/windows/win32/direct2d/direct2d-quickstart
 
 #pragma comment(lib, "d2d1")
 
-template<class Interface>
+template <class Interface>
 inline void SafeRelease(Interface **ppInterfaceToRelease)
 {
 	if (*ppInterfaceToRelease != NULL)
@@ -36,8 +36,15 @@ inline void SafeRelease(Interface **ppInterfaceToRelease)
 }
 
 #ifndef Assert
-#if defined( DEBUG ) || defined( _DEBUG )
-#define Assert(b) do {if (!(b)) {OutputDebugStringA("Assert: " #b "\n");}} while(0)
+#if defined(DEBUG) || defined(_DEBUG)
+#define Assert(b)                                   \
+	do                                              \
+	{                                               \
+		if (!(b))                                   \
+		{                                           \
+			OutputDebugStringA("Assert: " #b "\n"); \
+		}                                           \
+	} while (0)
 #else
 #define Assert(b)
 #endif //DEBUG || _DEBUG
@@ -51,7 +58,6 @@ EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 class GameWindow
 {
 public:
-	
 	GameWindow();
 	~GameWindow();
 
@@ -59,17 +65,20 @@ public:
 	HRESULT Initialize();
 
 	// Process and dispatch messages
-	void Update(const std::vector<int>& boardSquares);
+	void Update(const std::vector<int> &boardSquares);
 
 	bool DidWindowRequestExit();
 
 private:
-	
+	// No assigning, no duplicating
+	GameWindow(const GameWindow &rhs) = delete;
+	GameWindow &operator=(const GameWindow &rhs) = delete;
+
 	HWND m_hwnd;
-    ID2D1Factory* m_pDirect2dFactory;
-    ID2D1HwndRenderTarget* m_pRenderTarget;
-    ID2D1SolidColorBrush* m_pLightSlateGrayBrush;
-    ID2D1SolidColorBrush* m_pCornflowerBlueBrush;
+	ID2D1Factory *m_pDirect2dFactory;
+	ID2D1HwndRenderTarget *m_pRenderTarget;
+	ID2D1SolidColorBrush *m_pLightSlateGrayBrush;
+	ID2D1SolidColorBrush *m_pCornflowerBlueBrush;
 
 	bool m_bWindowRequestedExit = false;
 
@@ -88,16 +97,14 @@ private:
 	// Resize the render target.
 	void OnResize(
 		UINT width,
-		UINT height
-		);
+		UINT height);
 
 	// The windows procedure.
 	static LRESULT CALLBACK WndProc(
 		HWND hWnd,
 		UINT message,
 		WPARAM wParam,
-		LPARAM lParam
-		);
-	
+		LPARAM lParam);
+
 	void RequestExit();
 };

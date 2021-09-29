@@ -14,8 +14,9 @@ public:
 	~InputManager();
 
 private:
-	InputManager(const InputManager& rhs) = delete; // Only ever going to have one of these
-	InputManager& operator=(const InputManager& rhs) = delete; // Only ever going to have one of these
+	// Unique Object
+	InputManager(const InputManager &rhs) = delete;			   
+	InputManager &operator=(const InputManager &rhs) = delete; 
 
 	KeyCode GetKeyCodeFromParam(WPARAM param);
 	void SetKeyDown(KeyCode key, bool keyIsDown);

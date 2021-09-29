@@ -27,7 +27,7 @@ Board::~Board()
 {
 }
 
-const std::vector<int>& Board::GetBoardSquares()
+const std::vector<int> &Board::GetBoardSquares()
 {
 	return m_aSquares;
 }

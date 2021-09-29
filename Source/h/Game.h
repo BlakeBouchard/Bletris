@@ -9,7 +9,6 @@
 class Game
 {
 public:
-
 	Game();
 	~Game();
 
@@ -19,12 +18,12 @@ public:
 	void Update();
 
 private:
+	// Unique Object
+	Game(const Game &) = delete;
+	Game &operator=(const Game &) = delete;
 
 	const int NumRows = 15;
 	const int NumCols = 10;
-
-	Game(const Game&) = delete; // There should only ever be one Game
-	Game& operator=(const Game&) = delete; // There should only ever be one Game
 
 	std::shared_ptr<Board> m_pBoard;
 	std::shared_ptr<GameWindow> m_pGameWindow;

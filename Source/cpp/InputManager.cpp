@@ -35,7 +35,7 @@ bool InputManager::IsKeyDown(KeyCode key)
 	{
 		return m_aKeysDown.at(key);
 	}
-	catch (const std::out_of_range&)
+	catch (const std::out_of_range &)
 	{
 		std::cerr << "Tried to get KeyCode " << key << " but it did not exist in KeysDown table!\n";
 		return false;
@@ -69,7 +69,7 @@ KeyCode InputManager::GetKeyCodeFromParam(WPARAM virtualKeyCode)
 	{
 		return m_aKeyCodeLookup.at(virtualKeyCode);
 	}
-	catch (const std::out_of_range&)
+	catch (const std::out_of_range &)
 	{
 		std::cerr << "Tried to get Virtual Keycode " << virtualKeyCode << " but it did not exist in KeyCodeLookup table!\n";
 		return KeyCode::None;
