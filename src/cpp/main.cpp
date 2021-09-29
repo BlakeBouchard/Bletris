@@ -3,9 +3,9 @@
 #endif
 
 #include "../h/Game.h"
-#include "../h/GameWindow.h"
 
 #include <windows.h>
+
 #include <iostream>
 
 #pragma comment(lib, "ole32.lib")
@@ -24,9 +24,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	{
 		{
 			Game game;
-			GameWindow gameWindow;
 
-			if (!SUCCEEDED(gameWindow.Initialize()))
+			if (!SUCCEEDED(game.Initialize()))
 			{
 				std::cout << "GameWindow failed to initialize!\n";
 				std::abort();
@@ -34,10 +33,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 			try
 			{
-				while (!game.DidGameRequestExit() && !gameWindow.DidWindowRequestExit())
+				while (!game.DidGameRequestExit())
 				{
 					game.Update();
-					gameWindow.Update();
 				}
 			}
 			catch (const std::exception& ex)

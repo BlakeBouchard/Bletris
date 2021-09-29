@@ -1,8 +1,9 @@
 #pragma once
 
-#include <memory>
-
 #include "Board.h"
+#include "GameWindow.h"
+
+#include <memory>
 
 class Game
 {
@@ -13,6 +14,7 @@ public:
 
 	bool DidGameRequestExit() const;
 
+	HRESULT Initialize();
 	void Update();
 
 private:
@@ -23,7 +25,8 @@ private:
 	Game(const Game&) = delete; // There should only ever be one Game
 	Game& operator=(const Game&) = delete; // There should only ever be one Game
 
-	std::shared_ptr<Board> mBoard;
+	std::shared_ptr<Board> m_pBoard;
+	std::shared_ptr<GameWindow> m_pGameWindow;
 
 	bool bRequestedExit = false;
 

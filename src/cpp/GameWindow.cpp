@@ -16,7 +16,7 @@ GameWindow::~GameWindow()
 	SafeRelease(&m_pCornflowerBlueBrush);
 }
 
-void GameWindow::Update()
+void GameWindow::Update(const std::vector<int>& boardSquares)
 {
 	MSG msg;
 

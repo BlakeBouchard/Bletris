@@ -20,6 +20,8 @@ https://docs.microsoft.com/en-us/windows/win32/direct2d/direct2d-quickstart
 #include <dwrite.h>
 #include <wincodec.h>
 
+#include <vector>
+
 #pragma comment(lib, "d2d1")
 
 template<class Interface>
@@ -57,7 +59,7 @@ public:
 	HRESULT Initialize();
 
 	// Process and dispatch messages
-	void Update();
+	void Update(const std::vector<int>& boardSquares);
 
 	bool DidWindowRequestExit();
 

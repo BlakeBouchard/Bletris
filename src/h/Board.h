@@ -20,4 +20,6 @@ public:
 	Board(const Board& rhs);
 	Board& operator=(const Board& rhs);
 	~Board();
+
+	const std::vector<int>& GetBoardSquares();
 };
