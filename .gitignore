@@ -399,14 +399,7 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # VS Code files for those working on multiple tools
-# Actually, these files are probably okay
-# .vscode/*
-# !.vscode/settings.json
-# !.vscode/tasks.json
-# !.vscode/launch.json
-# !.vscode/extensions.json
-# !.vscode/c_cpp_properties.json
-# *.code-workspace
+.vscode/settings.json
 
 # Local History for Visual Studio Code
 .history/
