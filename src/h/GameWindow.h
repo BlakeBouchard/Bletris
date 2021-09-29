@@ -1,9 +1,9 @@
 #pragma once
 
-/*
+/*--------------------------------------------------------------------
 GameWindow: Source code heavily based on "Creating a Simple Direct2D Application"
 https://docs.microsoft.com/en-us/windows/win32/direct2d/direct2d-quickstart
-*/
+--------------------------------------------------------------------*/
 
 // Windows Header Files:
 #include <windows.h>

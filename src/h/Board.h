@@ -9,10 +9,10 @@ private:
 
 	Board() = delete; // Don't allow this to be constructed without taking rows and cols parameters
 
-	int mNumRows;
-	int mNumCols;
+	int m_iNumRows;
+	int m_iNumCols;
 
-	std::shared_ptr<std::vector<int>> mSquares;
+	std::shared_ptr<std::vector<int>> m_paSquares;
 
 public:
 
