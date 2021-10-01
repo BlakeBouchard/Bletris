@@ -13,7 +13,7 @@ public:
 	Board &operator=(const Board &rhs);
 	~Board();
 
-	const std::vector<Colour> &GetBoardSquares();
+	const std::vector<Colour>& GetBoardSquares();
 
 private:
 	Board() = delete; // Don't allow this to be constructed without taking rows and cols parameters

@@ -32,7 +32,7 @@ bool GameWindow::DidWindowRequestExit()
 	return m_bWindowRequestedExit;
 }
 
-void GameWindow::Update(const std::vector<Colour> &boardSquares)
+void GameWindow::Update(const std::vector<Colour>& boardSquares)
 {
 	MSG msg;
 

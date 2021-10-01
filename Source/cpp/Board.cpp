@@ -29,7 +29,7 @@ Board::~Board()
 {
 }
 
-const std::vector<Colour> &Board::GetBoardSquares()
+const std::vector<Colour>& Board::GetBoardSquares()
 {
 	return m_aSquares;
 }

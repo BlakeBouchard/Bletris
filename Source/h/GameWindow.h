@@ -71,7 +71,7 @@ public:
 	bool DidWindowRequestExit();
 
 	// Process and dispatch messages
-	void Update(const std::vector<Colour> &boardSquares);
+	void Update(const std::vector<Colour>& boardSquares);
 
 private:
 	// No assigning, no duplicating
