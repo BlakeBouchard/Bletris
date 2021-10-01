@@ -28,7 +28,7 @@ https://docs.microsoft.com/en-us/windows/win32/direct2d/direct2d-quickstart
 #pragma comment(lib, "d2d1")
 
 template <class Interface>
-inline void SafeRelease(Interface **ppInterfaceToRelease)
+inline void SafeRelease(Interface** ppInterfaceToRelease)
 {
 	if (*ppInterfaceToRelease != NULL)
 	{
@@ -82,13 +82,13 @@ private:
 	const unsigned short m_iNumCols;
 
 	HWND m_hwnd;
-	ID2D1Factory *m_pDirect2dFactory;
-	ID2D1HwndRenderTarget *m_pRenderTarget;
+	ID2D1Factory* m_pDirect2dFactory;
+	ID2D1HwndRenderTarget* m_pRenderTarget;
 
 	struct Brush
 	{
 		D2D1::ColorF drawColour;
-		ID2D1SolidColorBrush *pBrush;
+		ID2D1SolidColorBrush* pBrush;
 
 		Brush(D2D1::ColorF colour) : drawColour(colour), pBrush(nullptr) {}
 	};
@@ -122,7 +122,7 @@ private:
 		WPARAM wParam,
 		LPARAM lParam);
 
-	ID2D1SolidColorBrush *GetBrush(Colour colour);
+	ID2D1SolidColorBrush* GetBrush(Colour colour);
 
 	void DrawSquare(unsigned short xPos, unsigned short yPos, Colour colour);
 

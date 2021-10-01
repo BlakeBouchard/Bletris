@@ -161,7 +161,7 @@ LRESULT CALLBACK GameWindow::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 	if (message == WM_CREATE)
 	{
 		LPCREATESTRUCT pcs = (LPCREATESTRUCT)lParam;
-		GameWindow *pGameWindow = (GameWindow *)pcs->lpCreateParams;
+		GameWindow* pGameWindow = (GameWindow*)pcs->lpCreateParams;
 
 		::SetWindowLongPtrW(
 			hwnd,
@@ -172,7 +172,7 @@ LRESULT CALLBACK GameWindow::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 	}
 	else
 	{
-		GameWindow *pGameWindow = reinterpret_cast<GameWindow *>(static_cast<LONG_PTR>(
+		GameWindow* pGameWindow = reinterpret_cast<GameWindow*>(static_cast<LONG_PTR>(
 			::GetWindowLongPtrW(
 				hwnd,
 				GWLP_USERDATA)));
@@ -269,7 +269,7 @@ void GameWindow::OnResize(UINT width, UINT height)
 	}
 }
 
-ID2D1SolidColorBrush *GameWindow::GetBrush(Colour colour)
+ID2D1SolidColorBrush* GameWindow::GetBrush(Colour colour)
 {
 	try
 	{
