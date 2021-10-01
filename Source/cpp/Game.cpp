@@ -1,9 +1,10 @@
 #include "../h/Enums.h"
 #include "../h/Game.h"
 
-Game::Game() : m_pBoard(std::make_shared<Board>(NumRows, NumCols)),
-			   m_pGameWindow(std::make_shared<GameWindow>()),
-			   m_pInputManager(std::make_shared<InputManager>())
+Game::Game() :
+	m_pBoard(std::make_shared<Board>(NumCols, NumRows)),
+	m_pGameWindow(std::make_shared<GameWindow>(NumCols, NumRows)),
+	m_pInputManager(std::make_shared<InputManager>())
 {
 }
 

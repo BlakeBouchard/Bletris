@@ -22,8 +22,8 @@ private:
 	Game(const Game &) = delete;
 	Game &operator=(const Game &) = delete;
 
-	const int NumRows = 15;
 	const int NumCols = 10;
+	const int NumRows = 15;
 
 	std::shared_ptr<Board> m_pBoard;
 	std::shared_ptr<GameWindow> m_pGameWindow;

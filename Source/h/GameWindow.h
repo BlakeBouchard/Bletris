@@ -61,7 +61,8 @@ EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 class GameWindow
 {
 public:
-	GameWindow();
+	GameWindow() = delete;
+	GameWindow(int numCols, int numRows);
 	~GameWindow();
 
 	// Register the window class and call methods for instantiating drawing resources
@@ -76,6 +77,9 @@ private:
 	// No assigning, no duplicating
 	GameWindow(const GameWindow &rhs) = delete;
 	GameWindow &operator=(const GameWindow &rhs) = delete;
+
+	const unsigned short m_iNumRows;
+	const unsigned short m_iNumCols;
 
 	HWND m_hwnd;
 	ID2D1Factory *m_pDirect2dFactory;
@@ -120,7 +124,7 @@ private:
 
 	ID2D1SolidColorBrush *GetBrush(Colour colour);
 
-	void DrawRectangle(unsigned short xPos, unsigned short yPos, Colour colour, bool fill);
+	void DrawSquare(unsigned short xPos, unsigned short yPos, Colour colour);
 
 	void RequestExit();
 };

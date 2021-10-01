@@ -3,13 +3,16 @@
 #include <iostream>
 #include <stdexcept>
 
-GameWindow::GameWindow() : m_hwnd(NULL),
-						   m_pDirect2dFactory(NULL),
-						   m_pRenderTarget(NULL),
-						   m_aBrushes{
-							   {Colour::Blue, Brush(D2D1::ColorF::CornflowerBlue)},
-							   {Colour::Red, Brush(D2D1::ColorF::DarkRed)},
-							   {Colour::Gray, Brush(D2D1::ColorF::SlateGray)}}
+GameWindow::GameWindow(int numCols, int numRows) :
+	m_iNumCols(numCols),
+	m_iNumRows(numRows),
+	m_hwnd(NULL),
+	m_pDirect2dFactory(NULL),
+	m_pRenderTarget(NULL),
+	m_aBrushes{
+		{Colour::Blue, Brush(D2D1::ColorF::CornflowerBlue)},
+		{Colour::Red, Brush(D2D1::ColorF::DarkRed)},
+		{Colour::Gray, Brush(D2D1::ColorF::SlateGray)}}
 {
 }
 
@@ -241,7 +244,7 @@ HRESULT GameWindow::OnRender()
 		m_pRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::White));
 
 		// Draw each Square
-		DrawRectangle(0, 0, Colour::Blue, true);
+		DrawSquare(0, 0, Colour::Blue);
 
 		hr = m_pRenderTarget->EndDraw();
 	}
@@ -279,7 +282,7 @@ ID2D1SolidColorBrush *GameWindow::GetBrush(Colour colour)
 	}
 }
 
-void GameWindow::DrawRectangle(unsigned short xPos, unsigned short yPos, Colour colour, bool fill = true)
+void GameWindow::DrawSquare(unsigned short xPos, unsigned short yPos, Colour colour)
 {
 	D2D1_SIZE_F rtSize = m_pRenderTarget->GetSize();
 
@@ -289,15 +292,7 @@ void GameWindow::DrawRectangle(unsigned short xPos, unsigned short yPos, Colour 
 		rtSize.width / 2 + 50.0f,
 		rtSize.height / 2 + 50.0f);
 
-	if (fill)
-	{
-		// Draw a filled rectangle.
-		m_pRenderTarget->FillRectangle(&rectangle, GetBrush(colour));
-	}
-	else
-	{
-		m_pRenderTarget->DrawRectangle(&rectangle, GetBrush(colour));
-	}
+	m_pRenderTarget->FillRectangle(&rectangle, GetBrush(colour));
 }
 
 void GameWindow::RequestExit()
