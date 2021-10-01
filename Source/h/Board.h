@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Enums.h"
+
 #include <memory>
 #include <vector>
 
@@ -11,7 +13,7 @@ public:
 	Board &operator=(const Board &rhs);
 	~Board();
 
-	const std::vector<int> &GetBoardSquares();
+	const std::vector<Colour> &GetBoardSquares();
 
 private:
 	Board() = delete; // Don't allow this to be constructed without taking rows and cols parameters
@@ -19,5 +21,5 @@ private:
 	int m_iNumRows;
 	int m_iNumCols;
 
-	std::vector<int> m_aSquares;
+	std::vector<Colour> m_aSquares;
 };

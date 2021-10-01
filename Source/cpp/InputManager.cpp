@@ -37,7 +37,7 @@ bool InputManager::IsKeyDown(KeyCode key)
 	}
 	catch (const std::out_of_range &)
 	{
-		std::cerr << "Tried to get KeyCode " << key << " but it did not exist in KeysDown table!\n";
+		std::cerr << "Tried to get KeyCode but it did not exist in KeysDown table!\n";
 		return false;
 	}
 }

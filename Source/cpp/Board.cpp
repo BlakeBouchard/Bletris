@@ -3,7 +3,7 @@
 
 Board::Board(int numRows, int numCols) : m_iNumRows(numRows),
 										 m_iNumCols(numCols),
-										 m_aSquares(numRows * numCols, 0)
+										 m_aSquares(numRows * numCols, Colour::None)
 {
 }
 
@@ -27,7 +27,7 @@ Board::~Board()
 {
 }
 
-const std::vector<int> &Board::GetBoardSquares()
+const std::vector<Colour> &Board::GetBoardSquares()
 {
 	return m_aSquares;
 }

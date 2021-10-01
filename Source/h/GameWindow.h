@@ -5,6 +5,8 @@ GameWindow: Source code heavily based on "Creating a Simple Direct2D Application
 https://docs.microsoft.com/en-us/windows/win32/direct2d/direct2d-quickstart
 --------------------------------------------------------------------*/
 
+#include "Enums.h"
+
 // Windows Header Files:
 #include <windows.h>
 
@@ -20,6 +22,7 @@ https://docs.microsoft.com/en-us/windows/win32/direct2d/direct2d-quickstart
 #include <dwrite.h>
 #include <wincodec.h>
 
+#include <map>
 #include <vector>
 
 #pragma comment(lib, "d2d1")
@@ -64,10 +67,10 @@ public:
 	// Register the window class and call methods for instantiating drawing resources
 	HRESULT Initialize();
 
-	// Process and dispatch messages
-	void Update(const std::vector<int> &boardSquares);
-
 	bool DidWindowRequestExit();
+
+	// Process and dispatch messages
+	void Update(const std::vector<Colour> &boardSquares);
 
 private:
 	// No assigning, no duplicating
@@ -77,8 +80,17 @@ private:
 	HWND m_hwnd;
 	ID2D1Factory *m_pDirect2dFactory;
 	ID2D1HwndRenderTarget *m_pRenderTarget;
-	ID2D1SolidColorBrush *m_pLightSlateGrayBrush;
-	ID2D1SolidColorBrush *m_pCornflowerBlueBrush;
+
+	struct Brush
+	{
+		D2D1::ColorF drawColour;
+		ID2D1SolidColorBrush *pBrush;
+
+		Brush(D2D1::ColorF colour) : drawColour(colour), pBrush(nullptr) {}
+	};
+
+	// Brushes
+	std::map<Colour, Brush> m_aBrushes;
 
 	bool m_bWindowRequestedExit = false;
 
@@ -105,6 +117,10 @@ private:
 		UINT message,
 		WPARAM wParam,
 		LPARAM lParam);
+
+	ID2D1SolidColorBrush *GetBrush(Colour colour);
+
+	void DrawRectangle(unsigned short xPos, unsigned short yPos, Colour colour, bool fill);
 
 	void RequestExit();
 };

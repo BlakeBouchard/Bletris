@@ -1,5 +1,5 @@
+#include "../h/Enums.h"
 #include "../h/Game.h"
-#include "../h/KeyCode.h"
 
 Game::Game() : m_pBoard(std::make_shared<Board>(NumRows, NumCols)),
 			   m_pGameWindow(std::make_shared<GameWindow>()),

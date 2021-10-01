@@ -1,10 +1,15 @@
 #include "../h/GameWindow.h"
 
+#include <iostream>
+#include <stdexcept>
+
 GameWindow::GameWindow() : m_hwnd(NULL),
 						   m_pDirect2dFactory(NULL),
 						   m_pRenderTarget(NULL),
-						   m_pLightSlateGrayBrush(NULL),
-						   m_pCornflowerBlueBrush(NULL)
+						   m_aBrushes{
+							   {Colour::Blue, Brush(D2D1::ColorF::CornflowerBlue)},
+							   {Colour::Red, Brush(D2D1::ColorF::DarkRed)},
+							   {Colour::Gray, Brush(D2D1::ColorF::SlateGray)}}
 {
 }
 
@@ -12,11 +17,19 @@ GameWindow::~GameWindow()
 {
 	SafeRelease(&m_pDirect2dFactory);
 	SafeRelease(&m_pRenderTarget);
-	SafeRelease(&m_pLightSlateGrayBrush);
-	SafeRelease(&m_pCornflowerBlueBrush);
+
+	for (std::map<Colour, Brush>::iterator it = m_aBrushes.begin(); it != m_aBrushes.end(); it++)
+	{
+		SafeRelease(&it->second.pBrush);
+	}
 }
 
-void GameWindow::Update(const std::vector<int> &boardSquares)
+bool GameWindow::DidWindowRequestExit()
+{
+	return m_bWindowRequestedExit;
+}
+
+void GameWindow::Update(const std::vector<Colour> &boardSquares)
 {
 	MSG msg;
 
@@ -116,19 +129,12 @@ HRESULT GameWindow::CreateDeviceResources()
 			D2D1::HwndRenderTargetProperties(m_hwnd, size),
 			&m_pRenderTarget);
 
-		if (SUCCEEDED(hr))
+		// Create brushes for each colour we're going to need
+		for (std::map<Colour, Brush>::iterator it = m_aBrushes.begin(); SUCCEEDED(hr) && it != m_aBrushes.end(); it++)
 		{
-			// Create a gray brush.
-			hr = m_pRenderTarget->CreateSolidColorBrush(
-				D2D1::ColorF(D2D1::ColorF::LightSlateGray),
-				&m_pLightSlateGrayBrush);
-		}
-		if (SUCCEEDED(hr))
-		{
-			// Create a blue brush.
-			hr = m_pRenderTarget->CreateSolidColorBrush(
-				D2D1::ColorF(D2D1::ColorF::CornflowerBlue),
-				&m_pCornflowerBlueBrush);
+			// We don't actually care about the Key in the KeyValue pair here
+			// We only want to set up the brush with the D2D1::ColorF value set in the object stored in the Value
+			hr = m_pRenderTarget->CreateSolidColorBrush(it->second.drawColour, &it->second.pBrush);
 		}
 	}
 
@@ -138,8 +144,11 @@ HRESULT GameWindow::CreateDeviceResources()
 void GameWindow::DiscardDeviceResources()
 {
 	SafeRelease(&m_pRenderTarget);
-	SafeRelease(&m_pLightSlateGrayBrush);
-	SafeRelease(&m_pCornflowerBlueBrush);
+
+	for (std::map<Colour, Brush>::iterator it = m_aBrushes.begin(); it != m_aBrushes.end(); it++)
+	{
+		SafeRelease(&it->second.pBrush);
+	}
 }
 
 LRESULT CALLBACK GameWindow::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -231,48 +240,8 @@ HRESULT GameWindow::OnRender()
 
 		m_pRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::White));
 
-		D2D1_SIZE_F rtSize = m_pRenderTarget->GetSize();
-
-		// Draw a grid background.
-		int width = static_cast<int>(rtSize.width);
-		int height = static_cast<int>(rtSize.height);
-
-		for (int x = 0; x < width; x += 10)
-		{
-			m_pRenderTarget->DrawLine(
-				D2D1::Point2F(static_cast<FLOAT>(x), 0.0f),
-				D2D1::Point2F(static_cast<FLOAT>(x), rtSize.height),
-				m_pLightSlateGrayBrush,
-				0.5f);
-		}
-
-		for (int y = 0; y < height; y += 10)
-		{
-			m_pRenderTarget->DrawLine(
-				D2D1::Point2F(0.0f, static_cast<FLOAT>(y)),
-				D2D1::Point2F(rtSize.width, static_cast<FLOAT>(y)),
-				m_pLightSlateGrayBrush,
-				0.5f);
-		}
-
-		// Draw two rectangles.
-		D2D1_RECT_F rectangle1 = D2D1::RectF(
-			rtSize.width / 2 - 50.0f,
-			rtSize.height / 2 - 50.0f,
-			rtSize.width / 2 + 50.0f,
-			rtSize.height / 2 + 50.0f);
-
-		D2D1_RECT_F rectangle2 = D2D1::RectF(
-			rtSize.width / 2 - 100.0f,
-			rtSize.height / 2 - 100.0f,
-			rtSize.width / 2 + 100.0f,
-			rtSize.height / 2 + 100.0f);
-
-		// Draw a filled rectangle.
-		m_pRenderTarget->FillRectangle(&rectangle1, m_pLightSlateGrayBrush);
-
-		// Draw the outline of a rectangle.
-		m_pRenderTarget->DrawRectangle(&rectangle2, m_pCornflowerBlueBrush);
+		// Draw each Square
+		DrawRectangle(0, 0, Colour::Blue, true);
 
 		hr = m_pRenderTarget->EndDraw();
 	}
@@ -297,12 +266,41 @@ void GameWindow::OnResize(UINT width, UINT height)
 	}
 }
 
+ID2D1SolidColorBrush *GameWindow::GetBrush(Colour colour)
+{
+	try
+	{
+		return m_aBrushes.at(colour).pBrush;
+	}
+	catch (const std::out_of_range &)
+	{
+		std::cerr << "Tried to get Brush but it did not exist in Brushes table!\n";
+		return nullptr;
+	}
+}
+
+void GameWindow::DrawRectangle(unsigned short xPos, unsigned short yPos, Colour colour, bool fill = true)
+{
+	D2D1_SIZE_F rtSize = m_pRenderTarget->GetSize();
+
+	D2D1_RECT_F rectangle = D2D1::RectF(
+		rtSize.width / 2 - 50.0f,
+		rtSize.height / 2 - 50.0f,
+		rtSize.width / 2 + 50.0f,
+		rtSize.height / 2 + 50.0f);
+
+	if (fill)
+	{
+		// Draw a filled rectangle.
+		m_pRenderTarget->FillRectangle(&rectangle, GetBrush(colour));
+	}
+	else
+	{
+		m_pRenderTarget->DrawRectangle(&rectangle, GetBrush(colour));
+	}
+}
+
 void GameWindow::RequestExit()
 {
 	m_bWindowRequestedExit = true;
-}
-
-bool GameWindow::DidWindowRequestExit()
-{
-	return m_bWindowRequestedExit;
 }
