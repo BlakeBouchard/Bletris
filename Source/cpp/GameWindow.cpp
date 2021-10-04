@@ -71,14 +71,6 @@ HRESULT GameWindow::Initialize()
 
 		RegisterClassEx(&wcex);
 
-		// Because the CreateWindow function takes its size in pixels,
-		// obtain the system DPI and use it to scale the window size.
-		FLOAT dpiX, dpiY;
-
-		// The factory returns the current system DPI. This is also the value it will use
-		// to create its own windows.
-		m_pDirect2dFactory->GetDesktopDpi(&dpiX, &dpiY);
-
 		// Create the window.
 		m_hwnd = CreateWindow(
 			L"D2DGameWindow",
@@ -86,12 +78,13 @@ HRESULT GameWindow::Initialize()
 			WS_OVERLAPPEDWINDOW,
 			CW_USEDEFAULT,
 			CW_USEDEFAULT,
-			static_cast<UINT>(ceil(640.f * dpiX / 96.f)),
-			static_cast<UINT>(ceil(480.f * dpiY / 96.f)),
+			640,
+			480,
 			NULL,
 			NULL,
 			HINST_THISCOMPONENT,
 			this);
+
 		hr = m_hwnd ? S_OK : E_FAIL;
 		if (SUCCEEDED(hr))
 		{
