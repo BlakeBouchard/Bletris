@@ -2,7 +2,7 @@ DIR_SOURCE = ..\Source
 DIR_DEBUG = .\Debug
 DIR_RELEASE = .\Release
 
-CL_DEBUG_FLAGS = /Zi /FS /EHsc /nologo /DUNICODE /D_UNICODE
+CL_DEBUG_FLAGS = /Zi /FS /EHsc /nologo /DUNICODE /D_UNICODE /DEBUG /DDEBUG
 CL_RELEASE_FLAGS = /GL /O2 /Zi /FS /EHsc /nologo /DUNICODE /D_UNICODE
 OUTPUT_EXE = Bletris.exe
 

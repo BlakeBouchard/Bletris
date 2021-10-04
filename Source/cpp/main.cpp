@@ -7,6 +7,7 @@
 #include <windows.h>
 
 #include <iostream>
+#include <stdexcept>
 
 #pragma comment(lib, "ole32.lib")
 #pragma comment(lib, "user32.lib")
@@ -25,9 +26,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		{
 			Game game;
 
-			if (!SUCCEEDED(game.Initialize()))
+			HRESULT hr = game.Initialize();
+
+			if (!SUCCEEDED(hr))
 			{
-				std::cout << "GameWindow failed to initialize!\n";
+				std::cerr << "GameWindow failed to initialize with code " << hr << "\n";
 				std::abort();
 			}
 
@@ -38,10 +41,15 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 					game.Update();
 				}
 			}
-			catch (const std::exception &ex)
+#ifdef DEBUG
+			catch (const std::exception& ex)
 			{
-				std::cout << ex.what();
+				// It's extremely dangerous to print aribtrary exception text on a customer build
+				std::cerr << ex.what();
 			}
+#else
+			catch (const std::exception&) {}
+#endif
 		}
 		CoUninitialize();
 	}
