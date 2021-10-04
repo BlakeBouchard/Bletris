@@ -14,7 +14,7 @@ Game::~Game()
 
 HRESULT Game::Initialize()
 {
-	return SUCCEEDED(m_pGameWindow->Initialize());
+	return m_pGameWindow->Initialize();
 }
 
 void Game::Update()
