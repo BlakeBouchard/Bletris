@@ -1,4 +1,4 @@
-param ([switch] $Clean = $false, [switch] $Rebuild = $false)
+param ([switch] $Clean = $false, [switch] $Rebuild = $false, [switch] $Release = $false)
 
 if ($null -eq (Get-Command "nmake.exe" -ErrorAction SilentlyContinue))
 {
@@ -11,15 +11,30 @@ if ($null -eq (Get-Command "nmake.exe" -ErrorAction SilentlyContinue))
 }
 
 # We just want to run nmake here, and use the makefile for our complicated stuff
-if ($Rebuild)
-{
-	Invoke-Expression "nmake rebuild"
-}
-elseif ($Clean)
+
+if ($Clean)
 {
 	Invoke-Expression "nmake clean"
 }
+elseif ($Release)
+{
+	if ($Rebuild)
+	{
+		Invoke-Expression "nmake rebuild-release"
+	}
+	else
+	{
+		Invoke-Expression "nmake release"
+	}
+}
 else
 {
-	Invoke-Expression "nmake"
+	if ($Rebuild)
+	{
+		Invoke-Expression "nmake rebuild"
+	}
+	else
+	{
+		Invoke-Expression "nmake"
+	}
 }

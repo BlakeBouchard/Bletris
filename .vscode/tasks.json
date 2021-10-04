@@ -6,7 +6,7 @@
             "type": "shell",
             "command": "powershell",
 			"args": [
-                "${workspaceFolder}/Build.ps1"
+                "${workspaceFolder}\\Build.ps1"
             ],
 			"options": {
                 "cwd": "${workspaceFolder}"
@@ -24,7 +24,7 @@
             "type": "shell",
             "command": "powershell",
 			"args": [
-                "${workspaceFolder}/Build.ps1",
+                "${workspaceFolder}\\Build.ps1",
 				"-Clean"
             ],
 			"options": {
@@ -40,7 +40,7 @@
             "type": "shell",
             "command": "powershell",
 			"args": [
-                "${workspaceFolder}/Build.ps1",
+                "${workspaceFolder}\\Build.ps1",
 				"-Rebuild"
             ],
 			"options": {
@@ -50,6 +50,23 @@
 				"$msCompile"
 			],
             "group": "build"
-        }
+        },
+		{
+            "label": "Release",
+            "type": "shell",
+            "command": "powershell",
+			"args": [
+                "${workspaceFolder}\\Build.ps1",
+				"-Rebuild",
+				"-Release"
+            ],
+			"options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+				"$msCompile"
+			],
+            "group": "build"
+        },
     ]
 }
