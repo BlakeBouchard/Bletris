@@ -13,6 +13,9 @@
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],
+			"osx": {
+				"program": "${workspaceFolder}/Debug/Bletris"
+			},
 			"preLaunchTask": "Build"
 		}
 	]

@@ -6,7 +6,7 @@
             "type": "shell",
             "command": "powershell",
 			"args": [
-                "${workspaceFolder}\\Build.ps1"
+                "${workspaceFolder}/Build.ps1"
             ],
 			"options": {
                 "cwd": "${workspaceFolder}"
@@ -14,6 +14,10 @@
             "problemMatcher": [
 				"$msCompile"
 			],
+            "osx": {
+                "command": "pwsh",
+                "problemMatcher": "$gcc"
+            },
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -24,7 +28,7 @@
             "type": "shell",
             "command": "powershell",
 			"args": [
-                "${workspaceFolder}\\Build.ps1",
+                "${workspaceFolder}/Build.ps1",
 				"-Clean"
             ],
 			"options": {
@@ -33,6 +37,10 @@
             "problemMatcher": [
 				"$msCompile"
 			],
+            "osx": {
+                "command": "pwsh",
+                "problemMatcher": "$gcc"
+            },
             "group": "build"
         },
 		{
@@ -40,7 +48,7 @@
             "type": "shell",
             "command": "powershell",
 			"args": [
-                "${workspaceFolder}\\Build.ps1",
+                "${workspaceFolder}/Build.ps1",
 				"-Rebuild"
             ],
 			"options": {
@@ -49,6 +57,10 @@
             "problemMatcher": [
 				"$msCompile"
 			],
+            "osx": {
+                "command": "pwsh",
+                "problemMatcher": "$gcc"
+            },
             "group": "build"
         },
 		{
@@ -56,7 +68,7 @@
             "type": "shell",
             "command": "powershell",
 			"args": [
-                "${workspaceFolder}\\Build.ps1",
+                "${workspaceFolder}/Build.ps1",
 				"-Rebuild",
 				"-Release"
             ],
@@ -66,6 +78,10 @@
             "problemMatcher": [
 				"$msCompile"
 			],
+            "osx": {
+                "command": "pwsh",
+                "problemMatcher": "$gcc"
+            },
             "group": "build"
         },
     ]

@@ -7,6 +7,7 @@
 			],
 			"defines": [
 				"DEBUG",
+				"WINDOWS",
 				"UNICODE",
 				"_UNICODE"
 			],
@@ -17,11 +18,29 @@
 			"intelliSenseMode": "windows-msvc-x64"
 		},
 		{
+			"name": "Debug-macOS",
+			"includePath": [
+				"${workspaceFolder}/**"
+			],
+			"defines": [
+				"DEBUG",
+				"MACOS",
+				"UNICODE",
+				"_UNICODE"
+			],
+			"windowsSdkVersion": "10.0.19041.0",
+			"compilerPath": "/Library/Developer/CommandLineTools/usr/bin/clang++",
+			"cStandard": "c11",
+			"cppStandard": "c++14",
+			"intelliSenseMode": "macos-clang-x64"
+		},
+		{
 			"name": "Release",
 			"includePath": [
 				"${workspaceFolder}/**"
 			],
 			"defines": [
+				"WINDOWS",
 				"UNICODE",
 				"_UNICODE"
 			],
