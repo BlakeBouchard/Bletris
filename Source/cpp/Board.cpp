@@ -1,5 +1,4 @@
 #include "../h/Board.h"
-#include "../h/GameWindow.h"
 
 Board::Board(int numCols, int numRows) :
 	m_iNumCols(numCols),

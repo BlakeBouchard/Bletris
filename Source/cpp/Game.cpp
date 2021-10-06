@@ -1,9 +1,17 @@
 #include "../h/Enums.h"
 #include "../h/Game.h"
 
+#ifdef BLETRIS_WINDOWS
+#include "../h/GameWindowW.h"
+#endif
+
 Game::Game() :
 	m_pBoard(std::make_shared<Board>(NumCols, NumRows)),
-	m_pGameWindow(std::make_shared<GameWindow>(NumCols, NumRows)),
+#ifdef BLETRIS_WINDOWS
+	m_pGameWindow(std::make_shared<GameWindowW>(NumCols, NumRows)),
+#else
+	m_pGameWindow(std::make_shared<GameWindowM>(NumCols, NumRows)),
+#endif
 	m_pInputManager(std::make_shared<InputManager>())
 {
 }
@@ -12,7 +20,7 @@ Game::~Game()
 {
 }
 
-HRESULT Game::Initialize()
+bool Game::Initialize()
 {
 	return m_pGameWindow->Initialize();
 }

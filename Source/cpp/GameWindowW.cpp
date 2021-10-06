@@ -1,9 +1,11 @@
-#include "../h/GameWindow.h"
+#ifdef BLETRIS_WINDOWS
+
+#include "../h/GameWindowW.h"
 
 #include <iostream>
 #include <stdexcept>
 
-GameWindow::GameWindow(int numCols, int numRows) :
+GameWindowW::GameWindowW(int numCols, int numRows) :
 	m_iNumCols(numCols),
 	m_iNumRows(numRows),
 	m_hwnd(NULL),
@@ -16,7 +18,7 @@ GameWindow::GameWindow(int numCols, int numRows) :
 {
 }
 
-GameWindow::~GameWindow()
+GameWindowW::~GameWindowW()
 {
 	SafeRelease(&m_pDirect2dFactory);
 	SafeRelease(&m_pRenderTarget);
@@ -27,12 +29,12 @@ GameWindow::~GameWindow()
 	}
 }
 
-bool GameWindow::DidWindowRequestExit()
+bool GameWindowW::DidWindowRequestExit()
 {
 	return m_bWindowRequestedExit;
 }
 
-void GameWindow::Update(const std::vector<Colour>& boardSquares)
+void GameWindowW::Update(const std::vector<Colour>& boardSquares)
 {
 	MSG msg;
 
@@ -47,7 +49,7 @@ void GameWindow::Update(const std::vector<Colour>& boardSquares)
 	}
 }
 
-HRESULT GameWindow::Initialize()
+bool GameWindowW::Initialize()
 {
 	HRESULT hr;
 
@@ -60,7 +62,7 @@ HRESULT GameWindow::Initialize()
 		// Register the window class.
 		WNDCLASSEX wcex = {sizeof(WNDCLASSEX)};
 		wcex.style = CS_HREDRAW | CS_VREDRAW;
-		wcex.lpfnWndProc = GameWindow::WndProc;
+		wcex.lpfnWndProc = GameWindowW::WndProc;
 		wcex.cbClsExtra = 0;
 		wcex.cbWndExtra = sizeof(LONG_PTR);
 		wcex.hInstance = HINST_THISCOMPONENT;
@@ -93,10 +95,10 @@ HRESULT GameWindow::Initialize()
 		}
 	}
 
-	return hr;
+	return SUCCEEDED(hr);
 }
 
-HRESULT GameWindow::CreateDeviceIndependentResources()
+HRESULT GameWindowW::CreateDeviceIndependentResources()
 {
 	HRESULT hr = S_OK;
 
@@ -106,7 +108,7 @@ HRESULT GameWindow::CreateDeviceIndependentResources()
 	return hr;
 }
 
-HRESULT GameWindow::CreateDeviceResources()
+HRESULT GameWindowW::CreateDeviceResources()
 {
 	HRESULT hr = S_OK;
 
@@ -137,7 +139,7 @@ HRESULT GameWindow::CreateDeviceResources()
 	return hr;
 }
 
-void GameWindow::DiscardDeviceResources()
+void GameWindowW::DiscardDeviceResources()
 {
 	SafeRelease(&m_pRenderTarget);
 
@@ -147,14 +149,14 @@ void GameWindow::DiscardDeviceResources()
 	}
 }
 
-LRESULT CALLBACK GameWindow::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK GameWindowW::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	LRESULT result = 0;
 
 	if (message == WM_CREATE)
 	{
 		LPCREATESTRUCT pcs = (LPCREATESTRUCT)lParam;
-		GameWindow* pGameWindow = (GameWindow*)pcs->lpCreateParams;
+		GameWindowW* pGameWindow = (GameWindowW*)pcs->lpCreateParams;
 
 		::SetWindowLongPtrW(
 			hwnd,
@@ -165,7 +167,7 @@ LRESULT CALLBACK GameWindow::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 	}
 	else
 	{
-		GameWindow* pGameWindow = reinterpret_cast<GameWindow*>(static_cast<LONG_PTR>(
+		GameWindowW* pGameWindow = reinterpret_cast<GameWindowW*>(static_cast<LONG_PTR>(
 			::GetWindowLongPtrW(
 				hwnd,
 				GWLP_USERDATA)));
@@ -222,7 +224,7 @@ LRESULT CALLBACK GameWindow::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPA
 	return result;
 }
 
-HRESULT GameWindow::OnRender()
+HRESULT GameWindowW::OnRender()
 {
 	HRESULT hr = S_OK;
 
@@ -251,7 +253,7 @@ HRESULT GameWindow::OnRender()
 	return hr;
 }
 
-void GameWindow::OnResize(UINT width, UINT height)
+void GameWindowW::OnResize(UINT width, UINT height)
 {
 	if (m_pRenderTarget)
 	{
@@ -262,7 +264,7 @@ void GameWindow::OnResize(UINT width, UINT height)
 	}
 }
 
-ID2D1SolidColorBrush* GameWindow::GetBrush(Colour colour)
+ID2D1SolidColorBrush* GameWindowW::GetBrush(Colour colour)
 {
 	try
 	{
@@ -275,7 +277,7 @@ ID2D1SolidColorBrush* GameWindow::GetBrush(Colour colour)
 	}
 }
 
-void GameWindow::DrawSquare(unsigned short xPos, unsigned short yPos, Colour colour)
+void GameWindowW::DrawSquare(unsigned short xPos, unsigned short yPos, Colour colour)
 {
 	D2D1_SIZE_F rtSize = m_pRenderTarget->GetSize();
 
@@ -288,7 +290,9 @@ void GameWindow::DrawSquare(unsigned short xPos, unsigned short yPos, Colour col
 	m_pRenderTarget->FillRectangle(&rectangle, GetBrush(colour));
 }
 
-void GameWindow::RequestExit()
+void GameWindowW::RequestExit()
 {
 	m_bWindowRequestedExit = true;
 }
+
+#endif

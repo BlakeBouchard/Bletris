@@ -4,7 +4,9 @@
 
 #include "../h/Game.h"
 
+#ifdef BLETRIS_WINDOWS
 #include <windows.h>
+#endif
 
 #include <iostream>
 #include <stdexcept>
@@ -12,6 +14,37 @@
 #pragma comment(lib, "ole32.lib")
 #pragma comment(lib, "user32.lib")
 
+void StartGame()
+{
+	Game game;
+
+	bool initialized = game.Initialize();
+
+	if (!initialized)
+	{
+		std::cerr << "GameWindow failed to initialize\n";
+		std::abort();
+	}
+
+	try
+	{
+		while (!game.DidGameRequestExit())
+		{
+			game.Update();
+		}
+	}
+#ifdef DEBUG
+	catch (const std::exception& ex)
+	{
+		// It's extremely dangerous to print aribtrary exception text on a customer build
+		std::cerr << ex.what();
+	}
+#else
+	catch (const std::exception&) {}
+#endif
+}
+
+#ifdef BLETRIS_WINDOWS
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
 	// Use HeapSetInformation to specify that the process should
@@ -24,35 +57,19 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	if (SUCCEEDED(CoInitialize(NULL)))
 	{
 		{
-			Game game;
-
-			HRESULT hr = game.Initialize();
-
-			if (!SUCCEEDED(hr))
-			{
-				std::cerr << "GameWindow failed to initialize with code " << hr << "\n";
-				std::abort();
-			}
-
-			try
-			{
-				while (!game.DidGameRequestExit())
-				{
-					game.Update();
-				}
-			}
-#ifdef DEBUG
-			catch (const std::exception& ex)
-			{
-				// It's extremely dangerous to print aribtrary exception text on a customer build
-				std::cerr << ex.what();
-			}
-#else
-			catch (const std::exception&) {}
-#endif
+			StartGame();
 		}
 		CoUninitialize();
 	}
 
 	return 0;
 }
+#else
+int main(int argc, char* argv[])
+{
+	StartGame();
+
+	return 0;
+}
+
+#endif

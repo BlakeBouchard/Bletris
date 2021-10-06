@@ -7,7 +7,24 @@
 			],
 			"defines": [
 				"DEBUG",
-				"WINDOWS",
+				"BLETRIS_WINDOWS",
+				"UNICODE",
+				"_UNICODE"
+			],
+			"windowsSdkVersion": "10.0.19041.0",
+			"compilerPath": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\Hostx64\\x64\\cl.exe",
+			"cStandard": "c11",
+			"cppStandard": "c++14",
+			"intelliSenseMode": "windows-msvc-x64"
+		},
+		{
+			"name": "Debug-clang",
+			"includePath": [
+				"${workspaceFolder}/**"
+			],
+			"defines": [
+				"DEBUG",
+				"BLETRIS_MACOS",
 				"UNICODE",
 				"_UNICODE"
 			],
@@ -24,11 +41,12 @@
 			],
 			"defines": [
 				"DEBUG",
-				"MACOS",
+				"BLETRIS_MACOS",
 				"UNICODE",
 				"_UNICODE"
 			],
 			"windowsSdkVersion": "10.0.19041.0",
+			"macFrameworkPath": [],
 			"compilerPath": "/Library/Developer/CommandLineTools/usr/bin/clang++",
 			"cStandard": "c11",
 			"cppStandard": "c++14",
@@ -40,7 +58,7 @@
 				"${workspaceFolder}/**"
 			],
 			"defines": [
-				"WINDOWS",
+				"BLETRIS_WINDOWS",
 				"UNICODE",
 				"_UNICODE"
 			],

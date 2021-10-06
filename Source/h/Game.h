@@ -14,7 +14,7 @@ public:
 
 	bool DidGameRequestExit() const;
 
-	HRESULT Initialize();
+	bool Initialize();
 	void Update();
 
 private:

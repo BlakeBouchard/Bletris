@@ -2,15 +2,15 @@ DIR_DEBUG = .\Debug
 DIR_RELEASE = .\Release
 
 # Windows
-CL_DEBUG_FLAGS = /Zi /FS /EHsc /nologo /DUNICODE /D_UNICODE /DEBUG /DDEBUG /DWINDOWS
-CL_RELEASE_FLAGS = /GL /O2 /Zi /FS /EHsc /nologo /DUNICODE /D_UNICODE /DWINDOWS
+CL_DEBUG_FLAGS = /Zi /FS /EHsc /nologo /DUNICODE /D_UNICODE /DEBUG /DDEBUG /DBLETRIS_WINDOWS
+CL_RELEASE_FLAGS = /GL /O2 /Zi /FS /EHsc /nologo /DUNICODE /D_UNICODE /DBLETRIS_WINDOWS
 OUTPUT_EXE_WINDOWS = Bletris.exe
 
 # MacOS
 CLANG_DEBUG_FLAGS = -std=c++14 -stdlib=libc++
 OUTPUT_MACOS = Bletris
 
-SOURCE_FILES = ..\Source\cpp\*.cpp
+SOURCE_FILES = ../Source/cpp/*.cpp
 SOURCE_FILES_MACOS = ../Source/cpp/*.cpp
 
 all: build
