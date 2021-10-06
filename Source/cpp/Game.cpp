@@ -2,15 +2,15 @@
 #include "../h/Game.h"
 
 #ifdef BLETRIS_WINDOWS
-#include "../h/GameWindowW.h"
+#include "../h/GameWindowD2D.h"
 #endif
 
 Game::Game() :
 	m_pBoard(std::make_shared<Board>(NumCols, NumRows)),
 #ifdef BLETRIS_WINDOWS
-	m_pGameWindow(std::make_shared<GameWindowW>(NumCols, NumRows)),
+	m_pGameWindow(std::make_shared<GameWindowD2D>(NumCols, NumRows)),
 #else
-	m_pGameWindow(std::make_shared<GameWindowM>(NumCols, NumRows)),
+	m_pGameWindow(std::make_shared<GameWindowOpenGL>(NumCols, NumRows)),
 #endif
 	m_pInputManager(std::make_shared<InputManager>())
 {

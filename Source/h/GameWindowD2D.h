@@ -60,11 +60,11 @@ EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 #define HINST_THISCOMPONENT ((HINSTANCE)&__ImageBase)
 #endif
 
-class GameWindowW : public GameWindow
+class GameWindowD2D : public GameWindow
 {
 public:
-	GameWindowW(int numCols, int numRows);
-	virtual ~GameWindowW();
+	GameWindowD2D(int numCols, int numRows);
+	virtual ~GameWindowD2D();
 
 	// Register the window class and call methods for instantiating drawing resources
 	bool Initialize();
@@ -75,10 +75,10 @@ public:
 	void Update(const std::vector<Colour>& boardSquares);
 
 private:
-	GameWindowW() = delete;
+	GameWindowD2D() = delete;
 	// No assigning, no duplicating
-	GameWindowW(const GameWindowW &rhs) = delete;
-	GameWindowW &operator=(const GameWindowW &rhs) = delete;
+	GameWindowD2D(const GameWindowD2D &rhs) = delete;
+	GameWindowD2D &operator=(const GameWindowD2D &rhs) = delete;
 
 	const unsigned short m_iNumRows;
 	const unsigned short m_iNumCols;

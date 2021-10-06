@@ -34,9 +34,9 @@ void StartGame()
 		}
 	}
 #ifdef DEBUG
+	// It's extremely dangerous to print aribtrary exception text on a customer build
 	catch (const std::exception& ex)
 	{
-		// It's extremely dangerous to print aribtrary exception text on a customer build
 		std::cerr << ex.what();
 	}
 #else
@@ -45,6 +45,8 @@ void StartGame()
 }
 
 #ifdef BLETRIS_WINDOWS
+
+// Entry point for Windows build
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
 	// Use HeapSetInformation to specify that the process should
@@ -56,15 +58,18 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	if (SUCCEEDED(CoInitialize(NULL)))
 	{
-		{
-			StartGame();
-		}
+		StartGame();
+		
+		// StartGame should loop until it's time to exit
 		CoUninitialize();
 	}
 
 	return 0;
 }
+
 #else
+
+// Entry point for non-Windows build
 int main(int argc, char* argv[])
 {
 	StartGame();
