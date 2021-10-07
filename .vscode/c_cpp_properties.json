@@ -46,8 +46,7 @@
 				"_UNICODE"
 			],
 			"windowsSdkVersion": "10.0.19041.0",
-			"macFrameworkPath": [],
-			"compilerPath": "/Library/Developer/CommandLineTools/usr/bin/clang++",
+			"compilerPath": "/usr/bin/clang++",
 			"cStandard": "c11",
 			"cppStandard": "c++14",
 			"intelliSenseMode": "macos-clang-x64"

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Enums.h"
+
 #include <vector>
 
 class GameWindow
