@@ -3,16 +3,21 @@
 
 #ifdef BLETRIS_WINDOWS
 #include "../h/GameWindowD2D.h"
+#include "../h/InputManagerWin.h"
+#else
+#include "../h/GameWindowOpenGL.h"
+#include "../h/InputManagerMac.h"
 #endif
 
 Game::Game() :
 	m_pBoard(std::make_shared<Board>(NumCols, NumRows)),
 #ifdef BLETRIS_WINDOWS
 	m_pGameWindow(std::make_shared<GameWindowD2D>(NumCols, NumRows)),
+	m_pInputManager(std::make_shared<InputManagerWin>())
 #else
 	m_pGameWindow(std::make_shared<GameWindowOpenGL>(NumCols, NumRows)),
+	m_pInputManager(std::make_shared<InputManagerMac>())
 #endif
-	m_pInputManager(std::make_shared<InputManager>())
 {
 }
 

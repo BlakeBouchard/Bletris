@@ -1,4 +1,4 @@
-#include "../h/InputManager.h"
+#include "../h/InputManagerWin.h"
 
 #include <iostream>
 #include <stdexcept>
@@ -7,8 +7,9 @@
 	PUBLIC
 ------------*/
 
-InputManager::InputManager() : m_aKeysDown(),
-							   m_aKeyCodeLookup()
+InputManagerWin::InputManagerWin() :
+	m_aKeysDown(),
+	m_aKeyCodeLookup()
 {
 	m_aKeysDown.insert(std::make_pair(KeyCode::Up, false));
 	m_aKeysDown.insert(std::make_pair(KeyCode::Down, false));
@@ -25,11 +26,11 @@ InputManager::InputManager() : m_aKeysDown(),
 	m_aKeyCodeLookup.insert(std::make_pair(VK_ESCAPE, KeyCode::Esc));
 }
 
-InputManager::~InputManager()
+InputManagerWin::~InputManagerWin()
 {
 }
 
-bool InputManager::IsKeyDown(KeyCode key)
+bool InputManagerWin::IsKeyDown(KeyCode key)
 {
 	try
 	{
@@ -42,7 +43,7 @@ bool InputManager::IsKeyDown(KeyCode key)
 	}
 }
 
-void InputManager::Update()
+void InputManagerWin::Update()
 {
 	/*---------------------------------------------------------------------------
 	For each Virtual KeyCode in m_aKeyCodeLookup that we care about, we'll set
@@ -63,7 +64,7 @@ void InputManager::Update()
 	PRIVATE
 -------------*/
 
-KeyCode InputManager::GetKeyCodeFromParam(WPARAM virtualKeyCode)
+KeyCode InputManagerWin::GetKeyCodeFromParam(WPARAM virtualKeyCode)
 {
 	try
 	{
@@ -76,7 +77,7 @@ KeyCode InputManager::GetKeyCodeFromParam(WPARAM virtualKeyCode)
 	}
 }
 
-void InputManager::SetKeyDown(KeyCode key, bool keyIsDown)
+void InputManagerWin::SetKeyDown(KeyCode key, bool keyIsDown)
 {
 	if (key == KeyCode::None)
 	{
