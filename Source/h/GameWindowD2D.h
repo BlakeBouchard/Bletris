@@ -75,7 +75,7 @@ public:
 
 private:
 	GameWindowD2D() = delete;
-	// No assigning, no duplicating
+	// Unique Object
 	GameWindowD2D(const GameWindowD2D &rhs) = delete;
 	GameWindowD2D &operator=(const GameWindowD2D &rhs) = delete;
 
@@ -121,7 +121,8 @@ private:
 		HWND hWnd,
 		UINT message,
 		WPARAM wParam,
-		LPARAM lParam);
+		LPARAM lParam
+	);
 
 	ID2D1SolidColorBrush* GetBrush(Colour colour);
 
