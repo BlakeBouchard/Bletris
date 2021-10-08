@@ -114,7 +114,8 @@ private:
 	// Resize the render target.
 	void OnResize(
 		UINT width,
-		UINT height);
+		UINT height
+	);
 
 	// The windows procedure.
 	static LRESULT CALLBACK WndProc(
