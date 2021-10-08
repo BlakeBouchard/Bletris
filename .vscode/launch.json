@@ -17,6 +17,20 @@
 				"program": "${workspaceFolder}/Debug/Bletris"
 			},
 			"preLaunchTask": "Build"
+		},
+		{
+			"name": "Build and Debug SDL",
+			"type": "cppvsdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}\\Debug\\Bletris.exe",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"osx": {
+				"program": "${workspaceFolder}/Debug/Bletris"
+			},
+			"preLaunchTask": "Build SDL"
 		}
 	]
 }

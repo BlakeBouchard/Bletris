@@ -3,7 +3,8 @@
 		{
 			"name": "Debug",
 			"includePath": [
-				"${workspaceFolder}/**"
+				"${workspaceFolder}/Source/**",
+				"${workspaceFolder}/../Libraries/SDL/include/*"
 			],
 			"defines": [
 				"DEBUG",
@@ -18,13 +19,15 @@
 			"intelliSenseMode": "windows-msvc-x64"
 		},
 		{
-			"name": "Debug-clang",
+			"name": "Debug-sdl",
 			"includePath": [
-				"${workspaceFolder}/**"
+				"${workspaceFolder}/Source/**",
+				"${workspaceFolder}/../Libraries/SDL/include/*"
 			],
 			"defines": [
 				"DEBUG",
-				"BLETRIS_MACOS",
+				"BLETRIS_SDL",
+				"BLETRIS_WINDOWS",
 				"UNICODE",
 				"_UNICODE"
 			],
@@ -37,10 +40,12 @@
 		{
 			"name": "Debug-macOS",
 			"includePath": [
-				"${workspaceFolder}/**"
+				"${workspaceFolder}/Source/**",
+				"${workspaceFolder}/../Libraries/SDL/include/*"
 			],
 			"defines": [
 				"DEBUG",
+				"BLETRIS_SDL",
 				"BLETRIS_MACOS",
 				"UNICODE",
 				"_UNICODE"
@@ -54,7 +59,8 @@
 		{
 			"name": "Release",
 			"includePath": [
-				"${workspaceFolder}/**"
+				"${workspaceFolder}/Source/**",
+				"${workspaceFolder}/../Libraries/SDL/include/*"
 			],
 			"defines": [
 				"BLETRIS_WINDOWS",
@@ -65,7 +71,16 @@
 			"compilerPath": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\Hostx64\\x64\\cl.exe",
 			"cStandard": "c11",
 			"cppStandard": "c++14",
-			"intelliSenseMode": "windows-msvc-x64"
+			"intelliSenseMode": "windows-msvc-x64",
+			"compilerArgs": [],
+			"browse": {
+				"path": [
+					"${workspaceFolder}/Source/**",
+					"${workspaceFolder}/../Libraries/SDL",
+					"${workspaceFolder}"
+				],
+				"limitSymbolsToIncludedHeaders": true
+			}
 		}
 	],
 	"version": 4

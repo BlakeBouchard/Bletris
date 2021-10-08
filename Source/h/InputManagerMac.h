@@ -8,6 +8,8 @@ public:
 	InputManagerMac();
 	~InputManagerMac();
 
-	bool IsKeyDown(KeyCode key);
 	void Update();
+
+private:
+	std::map<int, KeyCode> m_aKeyCodeLookup;
 };

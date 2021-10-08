@@ -1,4 +1,8 @@
-param ([switch] $Clean = $false, [switch] $Rebuild = $false, [switch] $Release = $false)
+param (
+	[switch] $Clean = $false,
+	[switch] $Rebuild = $false,
+	[switch] $Release = $false,
+	[switch] $SDL = $false)
 
 if ($IsWindows)
 {
@@ -32,11 +36,25 @@ if ($IsWindows)
 	{
 		if ($Rebuild)
 		{
-			Invoke-Expression "nmake rebuild"
+			if ($SDL)
+			{
+				Invoke-Expression "nmake rebuild-sdl"
+			}
+			else
+			{
+				Invoke-Expression "nmake rebuild"
+			}
 		}
 		else
 		{
-			Invoke-Expression "nmake"
+			if ($SDL)
+			{
+				Invoke-Expression "nmake build-sdl"
+			}
+			else
+			{
+				Invoke-Expression "nmake"
+			}
 		}
 	}
 }

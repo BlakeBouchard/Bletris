@@ -23,6 +23,25 @@
             }
         },
 		{
+            "label": "Build SDL",
+            "type": "shell",
+            "command": "pwsh",
+			"args": [
+                "${workspaceFolder}/Build.ps1",
+				"-SDL"
+            ],
+			"options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+				"$msCompile"
+			],
+            "osx": {
+                "problemMatcher": "$gcc"
+            },
+            "group": "build"
+        },
+		{
             "label": "Clean",
             "type": "shell",
             "command": "pwsh",

@@ -79,6 +79,10 @@ private:
 	GameWindowD2D(const GameWindowD2D &rhs) = delete;
 	GameWindowD2D &operator=(const GameWindowD2D &rhs) = delete;
 
+	// Screen dimension constants
+	const int g_iScreenWidth = 640;
+	const int g_iScreenHeight = 480;
+
 	const unsigned short m_iNumRows;
 	const unsigned short m_iNumCols;
 

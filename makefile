@@ -10,7 +10,14 @@ OUTPUT_EXE_WINDOWS = Bletris.exe
 CLANG_DEBUG_FLAGS = -std=c++14 -stdlib=libc++
 OUTPUT_MACOS = Bletris
 
-SOURCE_FILES = ../Source/cpp/*.cpp
+SOURCE_FILES = \
+../Source/cpp/*.cpp
+
+INCLUDE_WINDOWS_LIBS = ole32.lib user32.lib
+INCLUDE_SDL_HEADERS = ../../Libraries/SDL/include/
+INCLUDE_SDL_LIBS = ../../Libraries/SDL/lib/x86/*.lib /DEF:SDL2.dll
+COPY_SDL_DLL = ..\..\Libraries\SDL\lib\x86\*.dll
+
 SOURCE_FILES_MACOS = ../Source/cpp/*.cpp
 
 all: build
@@ -24,7 +31,14 @@ build:
 	@echo Building Debug...
 	@if not exist $(DIR_DEBUG) mkdir $(DIR_DEBUG)
 	@cd $(DIR_DEBUG)
-	cl.exe $(CL_DEBUG_FLAGS) /Fe:$(OUTPUT_EXE_WINDOWS) $(SOURCE_FILES)
+	cl.exe $(CL_DEBUG_FLAGS) /Fe:$(OUTPUT_EXE_WINDOWS) $(SOURCE_FILES) /link $(INCLUDE_WINDOWS_LIBS)
+
+build-sdl:
+	@echo Building Debug-SDL...
+	@if not exist $(DIR_DEBUG) mkdir $(DIR_DEBUG)
+	@cd $(DIR_DEBUG)
+	@copy $(COPY_SDL_DLL) .
+	cl.exe $(CL_DEBUG_FLAGS) /DBLETRIS_SDL /Fe:$(OUTPUT_EXE_WINDOWS) /I $(INCLUDE_SDL_HEADERS) $(SOURCE_FILES) /link $(INCLUDE_WINDOWS_LIBS) $(INCLUDE_SDL_LIBS)
 
 build-macos:
 	@echo Building Debug-MacOS...
@@ -39,6 +53,7 @@ release:
 	cl.exe $(CL_RELEASE_FLAGS) /Fe:$(OUTPUT_EXE_WINDOWS) $(SOURCE_FILES)
 
 rebuild: clean build
+rebuild-sdl: clean build-sdl
 rebuild-release: clean release
 rebuild-macos: clean build-macos
 

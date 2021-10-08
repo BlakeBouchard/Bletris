@@ -2,17 +2,14 @@
 #define UNICODE
 #endif
 
-#include "../h/Game.h"
-
 #ifdef BLETRIS_WINDOWS
 #include <windows.h>
 #endif
 
+#include "../h/Game.h"
+
 #include <iostream>
 #include <stdexcept>
-
-#pragma comment(lib, "ole32.lib")
-#pragma comment(lib, "user32.lib")
 
 void StartGame()
 {

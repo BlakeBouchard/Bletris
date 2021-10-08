@@ -8,16 +8,9 @@
 ------------*/
 
 InputManagerWin::InputManagerWin() :
-	m_aKeysDown(),
+	InputManager(),
 	m_aKeyCodeLookup()
 {
-	m_aKeysDown.insert(std::make_pair(KeyCode::Up, false));
-	m_aKeysDown.insert(std::make_pair(KeyCode::Down, false));
-	m_aKeysDown.insert(std::make_pair(KeyCode::Left, false));
-	m_aKeysDown.insert(std::make_pair(KeyCode::Right, false));
-	m_aKeysDown.insert(std::make_pair(KeyCode::Space, false));
-	m_aKeysDown.insert(std::make_pair(KeyCode::Esc, false));
-
 	m_aKeyCodeLookup.insert(std::make_pair(VK_UP, KeyCode::Up));
 	m_aKeyCodeLookup.insert(std::make_pair(VK_DOWN, KeyCode::Down));
 	m_aKeyCodeLookup.insert(std::make_pair(VK_LEFT, KeyCode::Left));
@@ -28,19 +21,6 @@ InputManagerWin::InputManagerWin() :
 
 InputManagerWin::~InputManagerWin()
 {
-}
-
-bool InputManagerWin::IsKeyDown(KeyCode key)
-{
-	try
-	{
-		return m_aKeysDown.at(key);
-	}
-	catch (const std::out_of_range &)
-	{
-		std::cerr << "Tried to get KeyCode but it did not exist in KeysDown table!\n";
-		return false;
-	}
 }
 
 void InputManagerWin::Update()
@@ -75,14 +55,4 @@ KeyCode InputManagerWin::GetKeyCodeFromParam(WPARAM virtualKeyCode)
 		std::cerr << "Tried to get Virtual Keycode " << virtualKeyCode << " but it did not exist in KeyCodeLookup table!\n";
 		return KeyCode::None;
 	}
-}
-
-void InputManagerWin::SetKeyDown(KeyCode key, bool keyIsDown)
-{
-	if (key == KeyCode::None)
-	{
-		return;
-	}
-
-	m_aKeysDown[key] = keyIsDown;
 }
