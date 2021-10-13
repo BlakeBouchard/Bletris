@@ -41,7 +41,7 @@
 			"name": "Debug-macOS",
 			"includePath": [
 				"${workspaceFolder}/Source/**",
-				"${workspaceFolder}/../Libraries/SDL/include/*"
+				"/usr/local/Cellar/SDL2/**"
 			],
 			"defines": [
 				"DEBUG",

@@ -22,7 +22,6 @@ Game::Game() :
 #else
 	m_pGameWindow(std::make_shared<GameWindowD2D>(NumCols, NumRows)),
 #endif
-	// 
 #ifdef BLETRIS_WINDOWS
 	m_pInputManager(std::make_shared<InputManagerWin>())
 #else

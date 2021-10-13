@@ -1,5 +1,7 @@
 #include "../h/InputManagerWin.h"
 
+#ifdef BLETRIS_WINDOWS
+
 #include <iostream>
 #include <stdexcept>
 
@@ -56,3 +58,5 @@ KeyCode InputManagerWin::GetKeyCodeFromParam(WPARAM virtualKeyCode)
 		return KeyCode::None;
 	}
 }
+
+#endif
