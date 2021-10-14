@@ -6,6 +6,7 @@
 #include <stdexcept>
 
 GameWindowD2D::GameWindowD2D(int numCols, int numRows) :
+	GameWindow(),
 	m_iNumCols(numCols),
 	m_iNumRows(numRows),
 	m_hwnd(NULL),

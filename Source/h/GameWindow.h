@@ -7,7 +7,8 @@
 class GameWindow
 {
 public:
-	virtual ~GameWindow() {};
+	GameWindow() {}
+	virtual ~GameWindow() {}
 
 	// Register the window class and call methods for instantiating drawing resources
 	virtual bool Initialize() = 0;
